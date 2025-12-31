@@ -1,0 +1,14 @@
+//============================================================================
+// platforms/web/jsconfig.json - JavaScript Configuration
+// ============================================================================
+
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["components/*"],
+      "@/lib/*": ["lib/*"],
+      "@/styles/*": ["styles/*"]
+    }
+  }
+}

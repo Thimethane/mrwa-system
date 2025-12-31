@@ -1,0 +1,62 @@
+# Web Framework
+fastapi
+uvicorn[standard]
+python-multipart
+
+# Authentication
+pyjwt[crypto]
+bcrypt
+python-jose[cryptography]
+
+# Database
+sqlalchemy
+asyncpg
+alembic
+psycopg2-binary
+pydantic
+pydantic-settings
+
+
+# Redis
+redis
+hiredis
+
+# AI/ML
+google-generativeai
+
+# Document Processing
+PyPDF2
+python-docx
+beautifulsoup4
+lxml
+
+# Media Processing
+youtube-transcript-api
+pytube
+
+# HTTP
+requests
+httpx
+aiohttp
+
+# Utilities
+python-dotenv
+pydantic
+pydantic-settings
+
+# Testing
+pytest
+pytest-asyncio
+pytest-cov
+httpx
+
+# Development
+black
+flake8
+mypy
+
+# Monitoring
+sentry-sdk[fastapi]
+
+# Rate Limiting
+slowapi

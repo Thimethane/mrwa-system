@@ -1,0 +1,57 @@
+    1  ls
+    2  sudo apt install ./code_1.107.1-1765982436_amd64.deb
+    3  code
+    4  ls
+    5  source .env/bin/activate
+    6  cd mrwa
+    7  source .env/bin/activate
+    8  ls
+    9  code
+   10  cd ..
+   11  source .venv/bin/activate
+   12  ls
+   13  cd mrwa
+   14  chmod +x create_repo.sh
+   15  ./create_repo.sh
+   16  clear
+   17  cp .env.example .env
+   18  ^[[200~sudo apt install -y postgresql postgresql-contrib
+   19  sudo apt install -y postgresql postgresql-contrib
+   20  import secrets
+   21  print(secrets.token_urlsafe(48))
+   22  python - << 'EOF'\nimport secrets\nprint(secrets.token_urlsafe(48))\nEOF
+   23  ls
+   24  sudo apt update
+   25  python scripts/init_db.py
+   26  sudo apt update -y
+   27  pip install alembic
+   28  python scripts/init_db.py
+   29  ls core
+   30  pip install pydantic-settings
+   31  clear
+   32  python scripts/init_db.py
+   33  clear
+   34  pip install asyncpg
+   35  python scripts/init_db.py
+   36  clear
+   37  python scripts/init_db.py
+   38  clear
+   39  python scripts/init_db.py
+   40  pip install psycopg2-binary
+   41  python scripts/init_db.py
+   42  psql --version
+   43  clear
+   44  sudo systemctl start postgresql
+   45  sudo systemctl enable postgresql
+   46  sudo systemctl status postgresql
+   47  sudo systemctl start postgresql
+   48  sudo systemctl status postgresql
+   49  pg_lsclusters
+   50  ss -ltnp | grep 5432
+   51  sudo -u postgres psql
+   52  python scripts/init_db.py
+   53  sudo -u postgres psql
+   54  psql -h localhost -U mrwa -d mrwa
+   55  python scripts/init_db.py
+   56  postgres=# GRANT ALL PRIVILEGES ON DATABASE mrwa TO mrwa;\nERROR:  database "mrwa" does not exist\npostgres=# CREATE DATABASE mrwa OWNER mrwa;\nERROR:  template database "template1" has a collation version mismatch\nDETAIL:  The template database was created using collation version 2.41, but the operating system provides version 2.42.\nHINT:  Rebuild all objects in the template database that use the default collation and run ALTER DATABASE template1 REFRESH COLLATION VERSION, or build PostgreSQL with the right library version.\npostgres=# \l\n                                                     List of databases\n   Name    |  Owner   | Encoding | Locale Provider |   Collate   |    Ctype    | Locale | ICU Rules |   Access privileges   \n-----------+----------+----------+-----------------+-------------+-------------+--------+-----------+-----------------------\n postgres  | postgres | UTF8     | libc            | en_US.UTF-8 | en_US.UTF-8 |        |           | \n template0 | postgres | UTF8     | libc            | en_US.UTF-8 | en_US.UTF-8 |        |           | =c/postgres          +\n           |          |          |                 |             |             |        |           | postgres=CTc/postgres\n template1 | postgres | UTF8     | libc            | en_US.UTF-8 | en_US.UTF-8 |        |           | =c/postgres          +\n           |          |          |                 |             |             |        |           | postgres=CTc/postgres\n(3 rows)\n\npostgres=# \n\q
+   57  python scripts/init_db.py
