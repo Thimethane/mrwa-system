@@ -1,10 +1,13 @@
-// ============================================================================
-// platforms/web/styles/globals.css - Global Styles
-// ============================================================================
+/* ============================================================================
+   platforms/web/styles/globals.css - Global Styles
+   ============================================================================
+*/
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Add your global styles below */
 
 :root {
   --color-bg-primary: #0f172a;
