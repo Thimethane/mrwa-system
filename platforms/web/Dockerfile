@@ -1,40 +1,61 @@
-# ============================================================================ 
-# platforms/web/Dockerfile - Frontend Container (Production-ready)
+# ============================================================================
+# Frontend Dockerfile - MRWA Next.js (Docker-first, no local Node needed)
 # ============================================================================
 
-# Use a stable Node 18 LTS Alpine image
-FROM node:18-alpine
+# ----------------------------
+# Stage 1: Builder
+# ----------------------------
+# Docker automatically pulls this image
+FROM node:18-alpine AS builder
 
-# Set working directory
 WORKDIR /app
 
-# Set environment variables to avoid warnings
-ENV NODE_ENV=production \
-    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+# Environment
+ENV NODE_ENV=development \
     NEXT_TELEMETRY_DISABLED=1
 
-# Install system dependencies (if needed)
+# System dependencies
 RUN apk add --no-cache bash curl git
 
-# Copy package files first to leverage Docker cache
+# Copy dependency files first (cache layer)
 COPY package*.json ./
 
-# Install only production dependencies
-RUN npm ci --only=production
+# Install dependencies
+RUN npm install
 
-# Copy the rest of the app code
+# Copy source code
 COPY . .
 
-# Build Next.js for production
+# Build application
 RUN npm run build
 
-# Expose port 3000
+
+# ----------------------------
+# Stage 2: Production
+# ----------------------------
+# Docker automatically pulls this image
+FROM node:18-alpine
+
+WORKDIR /app
+
+ENV NODE_ENV=production \
+    NEXT_TELEMETRY_DISABLED=1
+
+# System dependencies
+RUN apk add --no-cache bash curl
+
+# Copy runtime files
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/node_modules ./node_modules
+
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/next.config.js ./next.config.js
+
+# Entrypoint
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
+
 EXPOSE 3000
 
-# Use a lightweight shell script to handle signals properly
-# This avoids the "ERR_INVALID_ARG_TYPE: 'SIGINT'" error
-COPY docker-entrypoint.sh /app/docker-entrypoint.sh
-RUN chmod +x /app/docker-entrypoint.sh
-
-# Use the entrypoint script
-ENTRYPOINT ["/app/docker-entrypoint.sh"]
+ENTRYPOINT ["/docker-entrypoint.sh"]

@@ -1,6 +1,7 @@
 # ============================================================================
 # docker-compose.yml - MRWA Complete Stack (Production-ready)
 # ============================================================================
+
 services:
   postgres:
     image: postgres:16-alpine
@@ -45,14 +46,28 @@ services:
     env_file:
       - .env
     environment:
+      # Postgres config
       POSTGRES_HOST: postgres
       POSTGRES_PORT: 5432
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${DATABASE_NAME}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${DATABASE_NAME}
+
+      # Superuser (for migrations/DB creation)
+      SUPERUSER: ${SUPERUSER}
+      SUPERUSER_PASSWORD: ${SUPERUSER_PASSWORD}
+
+      # Admin user
+      ADMIN_USER: ${ADMIN_USER}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+
+      # Redis
       REDIS_HOST: redis
       REDIS_PORT: 6379
       REDIS_URL: redis://redis:6379
+
+      # App / AI settings
       GEMINI_API_KEY: ${GEMINI_API_KEY}
       GEMINI_MODEL: ${GEMINI_MODEL}
       JWT_SECRET: ${JWT_SECRET}
@@ -65,6 +80,7 @@ services:
       MAX_EXECUTION_TIME_SECONDS: ${MAX_EXECUTION_TIME_SECONDS}
       MAX_RETRIES_PER_STEP: ${MAX_RETRIES_PER_STEP}
       LOG_LEVEL: ${LOG_LEVEL}
+
     ports:
       - "8000:8000"
     depends_on:
@@ -90,7 +106,7 @@ services:
     env_file:
       - .env
     environment:
-      NEXT_PUBLIC_API_URL: http://localhost:8000
+      NEXT_PUBLIC_API_URL: http://backend:8000
     ports:
       - "3000:3000"
     depends_on:
