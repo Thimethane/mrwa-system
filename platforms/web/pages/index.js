@@ -2,11 +2,10 @@
 // platforms/web/pages/index.js - Main Page
 // ============================================================================
 
-import { useEffect, useState } from 'react'
 import { useAuth } from '../lib/AuthContext'
 import Dashboard from '../components/Dashboard'
 import AuthForm from '../components/AuthForm'
-import Head from 'next/head'
+import { useEffect, useState } from 'react'
 
 export default function Home() {
   const { user, loading } = useAuth()
@@ -24,12 +23,5 @@ export default function Home() {
     )
   }
 
-  return (
-    <>
-      <Head>
-        <title>MRWA Dashboard</title>
-      </Head>
-      {user ? <Dashboard /> : <AuthForm />}
-    </>
-  )
+  return user ? <Dashboard /> : <AuthForm />
 }
